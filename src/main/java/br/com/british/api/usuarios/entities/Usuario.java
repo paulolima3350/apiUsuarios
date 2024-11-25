@@ -35,4 +35,8 @@ public class Usuario {
     @ManyToOne // Relação muitos-para-um com Perfil
     @JoinColumn(name = "perfil_id", nullable = false) // Define a chave estrangeira "perfil_id"
     private Perfil perfil;
+
+    @Column(nullable = false)
+    private Boolean ativo = true;
+
 }

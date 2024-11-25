@@ -2,10 +2,12 @@ package br.com.british.api.usuarios.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.british.api.usuarios.dtos.AlterarUsuarioRequestDto;
 import br.com.british.api.usuarios.dtos.AutenticarUsuarioRequestDto;
 import br.com.british.api.usuarios.dtos.AutenticarUsuarioResponseDto;
 import br.com.british.api.usuarios.dtos.CriarUsuarioRequestDto;
@@ -28,5 +30,11 @@ public class UsuariosController {
 	public AutenticarUsuarioResponseDto autenticar(@RequestBody @Valid AutenticarUsuarioRequestDto dto) {
 		return usuarioService.autenticarUsuario(dto);
 	}
+    
+    @PutMapping("alterar")
+    public String alterar(@RequestBody @Valid AlterarUsuarioRequestDto dto) {
+        return usuarioService.alterarUsuarioPorMatricula(dto);
+    }
+
 
 }
