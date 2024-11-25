@@ -1,41 +1,34 @@
 # API Usuários
 
-Uma API desenvolvida em Java com Spring Boot para gerenciar usuários e suas permissões. Este projeto utiliza JPA, PostgreSQL e está configurado para ser implantado com facilidade.
-
-## Funcionalidades
-
-- Gerenciamento de usuários:
-  - Criação, leitura, atualização e exclusão (CRUD).
-- Sistema de autenticação com tokens JWT.
-- Gerenciamento de perfis e permissões:
-  - Perfis como `Administrador` e `Operador`.
-  - Permissões específicas para ações como `Cadastrar`, `Consultar`, `Editar` e `Excluir`.
-- Documentação da API com OpenAPI (Swagger).
+Uma API desenvolvida em Java com Spring Boot para gerenciar usuários, perfis e permissões. Este projeto utiliza JPA, PostgreSQL e está configurado para ser implantado com facilidade.
 
 ## Tecnologias Utilizadas
-
 - **Java 17**
-- **Spring Boot 3.3.1**
-- **JPA (Hibernate)**
+- **Spring Boot 3.4.0**
+- **JPA / Hibernate**
 - **PostgreSQL**
 - **SpringDoc OpenAPI**
-- **Lombok**
+- **Maven**
 
-## Pré-requisitos
+## Endpoints
 
-Certifique-se de ter as seguintes ferramentas instaladas:
+### Usuários
+- `/usuarios` (POST, GET, PUT, DELETE)
+- `/usuarios/{id}` (GET, PUT, DELETE)
 
-- [Java 17](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html)
-- [Maven](https://maven.apache.org/download.cgi)
-- [PostgreSQL](https://www.postgresql.org/download/)
-- [Git](https://git-scm.com/)
+### Perfis
+- `/perfis` (POST, GET, PUT, DELETE)
+- `/perfis/{id}` (GET, PUT, DELETE)
 
-## Configuração do Banco de Dados
+### Permissões
+- `/permissoes` (POST, GET, PUT, DELETE)
+- `/permissoes/{id}` (GET, PUT, DELETE)
 
-1. Crie um banco de dados no PostgreSQL com o nome `api_usuarios`.
-2. Configure as credenciais no arquivo `application.properties`:
-   ```properties
-   spring.datasource.url=jdbc:postgresql://localhost:5432/api_usuarios
-   spring.datasource.username=seu_usuario
-   spring.datasource.password=sua_senha
-   spring.jpa.hibernate.ddl-auto=update
+### Autenticação
+- `/auth/login` (POST)
+- `/auth/logout` (POST)
+
+## Configuração
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/paulolima3350/apiUsuarios.git
