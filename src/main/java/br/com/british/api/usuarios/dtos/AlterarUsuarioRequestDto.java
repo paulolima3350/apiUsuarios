@@ -7,7 +7,7 @@ import lombok.Data;
 public class AlterarUsuarioRequestDto {
 
 	
-	 private String matricula; // Para identificar o usuário
+	 private Long matricula; // Para identificar o usuário
 	    private String nome;
 	    private String email;
 	    private String perfil; // Nome do perfil

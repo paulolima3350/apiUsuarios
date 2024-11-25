@@ -1,6 +1,8 @@
 package br.com.british.api.usuarios.services;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import br.com.british.api.usuarios.dtos.AlterarUsuarioRequestDto;
 import br.com.british.api.usuarios.dtos.AutenticarUsuarioRequestDto;
 import br.com.british.api.usuarios.dtos.AutenticarUsuarioResponseDto;
 import br.com.british.api.usuarios.dtos.CriarUsuarioRequestDto;
+import br.com.british.api.usuarios.dtos.UsuarioResponseDto;
 import br.com.british.api.usuarios.entities.Usuario;
 import br.com.british.api.usuarios.repositories.PerfilRepository;
 import br.com.british.api.usuarios.repositories.PermissaoRepository;
@@ -113,8 +116,44 @@ public class UsuarioService {
 	}
 
 
+	public UsuarioResponseDto consultarUsuarioPorMatricula(Long matricula) {
+	    // Buscar usuário pelo número de matrícula
+	    var usuario = usuarioRepository.findByMatricula(matricula);
+
+	    // Verificar se o usuário foi encontrado
+	    if (usuario == null) {
+	        throw new IllegalArgumentException("Usuário com a matrícula " + matricula + " não foi encontrado.");
+	    }
+
+	    // Mapear os dados do usuário para o DTO de resposta
+	    var responseDto = new UsuarioResponseDto();
+	    responseDto.setId(usuario.getId());
+	    responseDto.setNome(usuario.getNome());
+	    responseDto.setEmail(usuario.getEmail());
+	    responseDto.setMatricula(usuario.getMatricula());
+	    responseDto.setAtivo(usuario.getAtivo());
+	    responseDto.setPerfil(usuario.getPerfil().getNome());
+
+	    return responseDto;
+	}
 
 
+	public List<UsuarioResponseDto> consultarTodosUsuarios() {
+	    // Buscar todos os usuários no banco de dados
+	    var usuarios = usuarioRepository.findAll();
+
+	    // Mapear cada usuário para o DTO de resposta
+	    return usuarios.stream().map(usuario -> {
+	        var responseDto = new UsuarioResponseDto();
+	        responseDto.setId(usuario.getId());
+	        responseDto.setNome(usuario.getNome());
+	        responseDto.setEmail(usuario.getEmail());
+	        responseDto.setMatricula(usuario.getMatricula());
+	        responseDto.setAtivo(usuario.getAtivo());
+	        responseDto.setPerfil(usuario.getPerfil().getNome());
+	        return responseDto;
+	    }).collect(Collectors.toList());
+	}
 
 
 }

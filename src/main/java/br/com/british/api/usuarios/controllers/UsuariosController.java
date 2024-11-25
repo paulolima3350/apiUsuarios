@@ -1,6 +1,10 @@
 package br.com.british.api.usuarios.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +15,7 @@ import br.com.british.api.usuarios.dtos.AlterarUsuarioRequestDto;
 import br.com.british.api.usuarios.dtos.AutenticarUsuarioRequestDto;
 import br.com.british.api.usuarios.dtos.AutenticarUsuarioResponseDto;
 import br.com.british.api.usuarios.dtos.CriarUsuarioRequestDto;
+import br.com.british.api.usuarios.dtos.UsuarioResponseDto;
 import br.com.british.api.usuarios.services.UsuarioService;
 import jakarta.validation.Valid;
 
@@ -36,5 +41,15 @@ public class UsuariosController {
         return usuarioService.alterarUsuarioPorMatricula(dto);
     }
 
+    @GetMapping("/{matricula}")
+    public UsuarioResponseDto consultarUsuario(@PathVariable Long matricula) {
+        return usuarioService.consultarUsuarioPorMatricula(matricula);
+    }
+    
+    
+    @GetMapping
+    public List<UsuarioResponseDto> consultarTodosUsuarios() {
+        return usuarioService.consultarTodosUsuarios();
+    }
 
 }

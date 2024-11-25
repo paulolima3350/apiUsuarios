@@ -27,7 +27,7 @@ public class Usuario {
     private String email;
 
     @Column(name = "matricula", nullable = false, unique = true) // Define "matricula" como único e não nulo
-    private String matricula;
+    private Long matricula;
 
     @Column(name = "senha", nullable = false) // Define "senha" como não nula
     private String senha;

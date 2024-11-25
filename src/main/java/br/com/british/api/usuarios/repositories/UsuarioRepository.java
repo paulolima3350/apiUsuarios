@@ -13,10 +13,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	
 	//metodo para consultar 1 usuario no banco de dados atraves da matricula
 	@Query("FROM Usuario u WHERE u.matricula = :matricula")
-	Usuario findByMatricula(@Param("matricula") String matricula);
+	Usuario findByMatricula(@Param("matricula") Long matricula);
 	
 	@Query("FROM  Usuario u WHERE u.matricula = :matricula AND u.senha = :senha")
-	Usuario findByMatriculaAndSenha(@Param("matricula") String matricula, @Param("senha") String senha);
+	Usuario findByMatriculaAndSenha(@Param("matricula") Long matricula, @Param("senha") String senha);
 	
 	@Query("FROM Usuario u WHERE u.email = :email")
 	Usuario findByEmail(@Param("email") String email);
