@@ -15,6 +15,7 @@ import br.com.british.api.usuarios.dtos.AlterarUsuarioRequestDto;
 import br.com.british.api.usuarios.dtos.AutenticarUsuarioRequestDto;
 import br.com.british.api.usuarios.dtos.AutenticarUsuarioResponseDto;
 import br.com.british.api.usuarios.dtos.CriarUsuarioRequestDto;
+import br.com.british.api.usuarios.dtos.InativarUsuarioRequestDto;
 import br.com.british.api.usuarios.dtos.UsuarioResponseDto;
 import br.com.british.api.usuarios.services.UsuarioService;
 import jakarta.validation.Valid;
@@ -52,4 +53,10 @@ public class UsuariosController {
         return usuarioService.consultarTodosUsuarios();
     }
 
+    
+    @PutMapping("/inativar")
+    public String inativarUsuario(@RequestBody @Valid InativarUsuarioRequestDto dto) {
+        return usuarioService.inativarUsuario(dto);
+    }
+    
 }

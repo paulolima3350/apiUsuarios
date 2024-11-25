@@ -13,6 +13,7 @@ import br.com.british.api.usuarios.dtos.AlterarUsuarioRequestDto;
 import br.com.british.api.usuarios.dtos.AutenticarUsuarioRequestDto;
 import br.com.british.api.usuarios.dtos.AutenticarUsuarioResponseDto;
 import br.com.british.api.usuarios.dtos.CriarUsuarioRequestDto;
+import br.com.british.api.usuarios.dtos.InativarUsuarioRequestDto;
 import br.com.british.api.usuarios.dtos.UsuarioResponseDto;
 import br.com.british.api.usuarios.entities.Usuario;
 import br.com.british.api.usuarios.repositories.PerfilRepository;
@@ -154,6 +155,26 @@ public class UsuarioService {
 	        return responseDto;
 	    }).collect(Collectors.toList());
 	}
+
+	
+	public String inativarUsuario(InativarUsuarioRequestDto dto) {
+	    // Buscar o usuário pela matrícula
+	    var usuarioExistente = usuarioRepository.findByMatricula(dto.getMatricula());
+	    if (usuarioExistente == null) {
+	        throw new IllegalArgumentException("Usuário não encontrado com a matrícula: " + dto.getMatricula());
+	    }
+
+	    // Alternar o status 'ativo'
+	    usuarioExistente.setAtivo(!usuarioExistente.getAtivo());
+
+	    // Salvar as alterações no banco de dados
+	    usuarioRepository.save(usuarioExistente);
+
+	    // Retornar mensagem indicando o novo status
+	    String status = usuarioExistente.getAtivo() ? "ativo" : "inativo";
+	    return "Status do usuário alterado para " + status + " com sucesso.";
+	}
+
 
 
 }
