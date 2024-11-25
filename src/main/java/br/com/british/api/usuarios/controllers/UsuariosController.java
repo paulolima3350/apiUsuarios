@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.british.api.usuarios.dtos.AutenticarUsuarioRequestDto;
+import br.com.british.api.usuarios.dtos.AutenticarUsuarioResponseDto;
 import br.com.british.api.usuarios.dtos.CriarUsuarioRequestDto;
 import br.com.british.api.usuarios.services.UsuarioService;
 import jakarta.validation.Valid;
@@ -24,7 +25,7 @@ public class UsuariosController {
     }
     
     @PostMapping("autenticar")
-	public String autenticar(@RequestBody @Valid AutenticarUsuarioRequestDto dto) {
+	public AutenticarUsuarioResponseDto autenticar(@RequestBody @Valid AutenticarUsuarioRequestDto dto) {
 		return usuarioService.autenticarUsuario(dto);
 	}
 

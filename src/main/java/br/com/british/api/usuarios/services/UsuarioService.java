@@ -1,11 +1,14 @@
 package br.com.british.api.usuarios.services;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.british.api.usuarios.components.JwtTokenComponent;
 import br.com.british.api.usuarios.components.SHA256Component;
 import br.com.british.api.usuarios.dtos.AutenticarUsuarioRequestDto;
+import br.com.british.api.usuarios.dtos.AutenticarUsuarioResponseDto;
 import br.com.british.api.usuarios.dtos.CriarUsuarioRequestDto;
 import br.com.british.api.usuarios.entities.Usuario;
 import br.com.british.api.usuarios.repositories.PerfilRepository;
@@ -59,7 +62,7 @@ public class UsuarioService {
 
 	
 	
-	public String autenticarUsuario(AutenticarUsuarioRequestDto dto) {
+	public AutenticarUsuarioResponseDto autenticarUsuario(AutenticarUsuarioRequestDto dto) {
 
 		//buscando os dados do usuário no banco através do email e da senha
 		var usuario = usuarioRepository.findByMatriculaAndSenha(dto.getMatricula(), sha256Component.hash(dto.getSenha()));
@@ -71,8 +74,20 @@ public class UsuarioService {
 		//gerando o token do usuário
 		var token = jwtTokenComponent.generateToken(usuario.getId());
 		
+		
+		var response = new AutenticarUsuarioResponseDto();
+	    response.setId(usuario.getId());
+	    response.setNome(usuario.getNome());
+	    response.setEmail(usuario.getEmail());
+	    response.setToken(token);
+	    response.setDataHoraAcesso(new Date()); // Data e hora do acesso
+	    response.setDataHoraExpiracao(new Date(new Date().getTime() + 600000)); // 10 minutos
+	    response.setPerfil(usuario.getPerfil().getNome());
+	    response.setMensagem("Usuário autenticado com sucesso.");
+
+		
 		//retornando o token
-		return token;
+		return response;
 	}
 
 }

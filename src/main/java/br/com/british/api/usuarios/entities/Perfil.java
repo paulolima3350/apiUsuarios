@@ -34,6 +34,7 @@ public class Perfil {
         name = "tb_perfil_permissao",
         joinColumns = @JoinColumn(name = "perfil_id", nullable = false),
         inverseJoinColumns = @JoinColumn(name = "permissao_id", nullable = false)
+       
     )
     private List<Permissao> permissoes;
 
